@@ -32,11 +32,10 @@ function onDeviceReady() {
 
 // Handle Cordova Device Ready Event
 
-var db, email;
+var db, email, timestamp;
 var colUsuarios, colPedidos;
 var rol = "usuario";
 var estado = "pendiente";
-var timestamp = Date.now();
 
 $(document).ready(function () {
     //$(document).on('ready', function () {
@@ -53,25 +52,28 @@ $(document).ready(function () {
     $('#bIngresa').on('click', fnIngresa);
     $('#bRegPedido').on('click', fnRegPedido);
 
-    $("#myInput").on("keyup", function() {
+
+    // Buscar panel admin
+    $("#myInput").on("keyup", function () {
         var value = $(this).val().toLowerCase();
-        $("#myDIV tr").filter(function() {
-          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        $("#myDIV tr").filter(function () {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
         });
-      });
+    });
 
 
     // FUNCION USUARIO NAVS   
 
     $('#listarU').click(function () {
         $('#listaPedidos').show();
-        $('#nav2').hide();
+        $('#nav2').addClass("invisible")
     });
 
     $('#registroU').click(function () {
-        $('#nav2').show();
+        $('#nav2').removeClass("invisible").addClass("visible");
         $('#listaPedidos').hide();
     });
+
 
 
     function fnRegistro() {
@@ -215,7 +217,7 @@ $(document).ready(function () {
                         if (rolUsuario == "admin") {
                             location.href = 'panel-admin.html';
                         } else {
-                            location.href = 'panel-usuario.html#listaPedidos';
+                            location.href = 'panel-usuario.html';
                         }
 
                     } else {
@@ -271,11 +273,15 @@ $(document).ready(function () {
         pFiles = $('#pfiles').val();
         pDescripcion = $('#pdescripcion').val();
 
-        //construyo el objeto de datos JSON
-
         var storage = sessionStorage;
+
+        // Guardar datos en sessionStorage
+        storage.setItem('timestampS', timestamp);
         //Recuperar datos de sessionStorage
         email = storage.getItem('emailUsuario');
+
+
+        //construyo el objeto de datos JSON
 
         var datospedido = {
             material: pMaterial,
@@ -291,7 +297,7 @@ $(document).ready(function () {
         colPedidos.doc(elId).set(datospedido)
             .then(function (ok) {
                 console.log("Registro en BD OK!");
-                alert(email);
+                console.log(email);
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',
@@ -355,7 +361,7 @@ $(document).ready(function () {
 
     })();
 
-    //FUNCION VER PEDIDOS
+    //FUNCION VER PEDIDOS PANEL USUARIO
 
     (function () {
 
@@ -425,30 +431,44 @@ $(document).ready(function () {
                         <div class="modal-body">
                             <div class="form-group">
                                 <label for="recipient-name" class="col-form-label">Material:</label>
-                                <input type="text" class="form-control" id="recipient-name" value="${pMaterial}">
+                                <input type="text" class="form-control" id="uMaterial${timestamp}" value="${pMaterial}">
                                 <label for="recipient-name" class="col-form-label">Tamaño:</label>
-                                <input type="text" class="form-control" id="recipient-name" value="${pTamano}">
+                                <input type="text" class="form-control" id="uTamano${timestamp}" value="${pTamano}">
                                 <label for="recipient-name" class="col-form-label">Cantidad:</label>
-                                <input type="number" class="form-control" id="recipient-name" value="${pCantidad}">
+                                <input type="number" class="form-control" id="Ucantidad${timestamp}" value="${pCantidad}">
                                 <label for="recipient-name" class="col-form-label">Fecha de Entrega:</label>
-                                <input type="date" class="form-control" id="recipient-name" value="${pFechaEnt}" >
+                                <input type="date" class="form-control" id="UFechaEnt${timestamp}" value="${pFechaEnt}" >
                                 <label for="recipient-name" class="col-form-label">Imagenes producto:</label>
-                                <input type="file" class="form-control" id="recipient-name" value="${pFiles}">
+                                <input type="file" class="form-control" id="uFiles${timestamp}" value="${pFiles}">
                                 <label for="recipient-name" class="col-form-label">Descripcion:</label>
-                                <input type="text-area" class="form-control" id="recipient-name" value="${pDescripcion}">
+                                <input type="text-area" class="form-control" id="uDescripcion${timestamp}" value="${pDescripcion}">
                             </div>
                         </div>
                         
                         <!-- Modal footer -->
                         <div class="modal-footer">
                             <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-success btnUpdateUser"  id="${timestamp}"> Update </button>   
                         </div>
+                        
     
                     </div>
                 </div>
+                
                 </div>  
+                
                     `;
                     $('#modales').append(datosCardPedidos);
+                    // $("btnUpdateUser").on()
+                    /*  $('#btnUpdateUser').on('click', function(){
+                          fnUpdateUser();
+                          console.log("Entro en Actualizar");
+                      });*/
+                    $('.btnUpdateUser').on('click', function () {
+                        fnUpdateUser(this.id)
+                    });
+
+
                 });
             })
             .catch((error) => {
@@ -459,7 +479,112 @@ $(document).ready(function () {
 
     })();
 
+    var uMaterial, uTamano, Ucantidad, UFechaEnt, uFiles, uDescripcion;
+    //FUNCION ACTUALIZAR PEDIDO PANEL USUARIO
+    function fnUpdateUser(elId) {
 
+        console.log("Entro en Actualizar");
+
+        var storage = sessionStorage;
+        //Recuperar datos de sessionStorage
+        timestamp = storage.getItem('timestampS');
+        email = storage.getItem('emailUsuario');
+
+        //identificador
+        elId = "" + elId;
+
+        //Recuperar datos de los inputs
+
+        uMaterial = $('#uMaterial' + elId).val();
+        uTamano = $('#uTamano' + elId).val();
+        Ucantidad = $('#Ucantidad' + elId).val();
+        UFechaEnt = $('#UFechaEnt' + elId).val();
+        uFiles = $('#uFiles' + elId).val();
+        uDescripcion = $('#uDescripcion' + elId).val();
+
+        //Contruir objeto JSON
+
+        var UpdPedido = {
+            material: uMaterial,
+            tamaño: uTamano,
+            cantidad: Ucantidad,
+            fechaEntrega: UFechaEnt,
+            files: uFiles,
+            descripcion: uDescripcion,
+            email: email
+
+        }
+        console.log(elId);
+        console.log(UpdPedido);
+        //Actualizar datos en la base de datos
+        colPedidos.doc(elId).update(UpdPedido)
+            .then(function () {
+                console.log("actualizado ok");
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Pedido Actualizado!!',
+                    showConfirmButton: false,
+                    timer: 5000
+                })
+                location.href = 'panel-usuario.html';
+
+            })
+            .catch(function (error) {
+
+                console.log("Error: " + error);
+
+            });
+    }
+
+    //FUNCION VER PEDIDOS PANEL ADMIN
+
+    (function () {       
+
+        colPedidos.get()
+            .then((querySnapshot) => {
+                datosTable = ``;
+                querySnapshot.forEach((doc) => {
+
+                    pMaterial = doc.data().material;
+                    pTamano = doc.data().tamaño;
+                    pCantidad = doc.data().cantidad;
+                    pFechaEnt = doc.data().fechaEntrega;
+                    pFiles = doc.data().files;
+                    pDescripcion = doc.data().descripcion;
+                    estado = doc.data().estado;
+                    email = doc.data().email;
+                    timestamp = doc.id;
+
+                    datosTable = `                 
+
+                        <tr>
+                        <td>${timestamp}</td>
+                        <td>${pMaterial}</td>
+                        <td>${pTamano}</td>
+                        <td>${pCantidad}</td>
+                        <td>${pFechaEnt}</td>
+                        <td>${pFiles}</td>
+                        <td>${pDescripcion}</td>
+                        <td>${estado}</td>
+                        <td>${email}</td>  
+                        <td><a href="" type="button" data-toggle="modal" data-target="#myModal_${timestamp}">                           
+                        <i class="fa fa-edit" aria-hidden="true"></i>                          
+                        </a></td>                  
+                        </tr>
+                 
+                      `;
+                    $('#tPedidos').append(datosTable);                    
+
+                });
+            })
+            .catch((error) => {
+                console.log("Error getting documents: ", error);
+            });
+
+
+
+    })();
 
 
 

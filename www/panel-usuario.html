@@ -38,120 +38,120 @@
 
 <body>
 
-    <div class="hero_area">
-        <!-- header section strats -->
-        <header class="header_section long_section px-0">
-            <nav class="navbar navbar-expand-lg custom_nav-container ">
-                <a class="navbar-brand" href="index.html">
-                    <span>
-                        Venta de Articulos <br />
-                        en Porcelanicron
-                    </span>
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse"
-                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span class=""> </span>
-                </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <div class="d-flex mx-auto flex-column flex-lg-row align-items-center">
-                        <ul class="navbar-nav  ">
-                            <li class="nav-item active">
-                                <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="about.html"> About</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="blog.html">Blog</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="contact.html">Contact Us</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="quote_btn-container">
-                        <a href="login.html" id="login_btn">
-                            <span>
-                                LOGIN
-                            </span>
-                            <i class="fa fa-user" aria-hidden="true"></i>
-                        </a>
-                        <form class="form-inline">
-                            <button class="btn  my-2 my-sm-0 nav_search-btn" type="button" >
-                                <i class="fa fa-search" aria-hidden="true"></i>
-                            </button>
-                        </form>
-                    </div>
+    <!-- header section strats -->
+    <header class="header_section long_section px-0">
+        <nav class="navbar navbar-expand-lg custom_nav-container ">
+            <a class="navbar-brand" href="index.html">
+                <span>
+                    Venta de Articulos <br />
+                    en Porcelanicron
+                </span>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class=""> </span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="d-flex mx-auto flex-column flex-lg-row align-items-center">
+                    <ul class="navbar-nav  ">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="about.html"> About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="blog.html">Blog</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">Contact Us</a>
+                        </li>
+                    </ul>
                 </div>
-            </nav>
-        </header>
-        <!-- end header section -->
-        <br>
-        <br>
-
-        <div class="card text-center">
-            <div class="card-header">
-                <ul class="nav nav-pills card-header-pills">
-                    <li class="nav-item" id="listarU">
-                        <a class="nav-link" href="#listaPedidos">Active</a>
-                    </li>
-                    <li class="nav-item" id="registroU">
-                        <a class="nav-link" href="#nav2">Link</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#">Disabled</a>
-                    </li>
-                </ul>
+                <div class="quote_btn-container">
+                    <a href="login.html" id="login_btn">
+                        <span>
+                            LOGIN
+                        </span>
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                    </a>
+                    <form class="form-inline">
+                        <button class="btn  my-2 my-sm-0 nav_search-btn" type="button">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </button>
+                    </form>
+                </div>
             </div>
+        </nav>
+    </header>
+    <!-- end header section -->
+    <br>
+    <br>
 
-            <h5 class="card-title">Lista de Pedidos</h5> <br>
+    <div class="card text-center">
+        <div class="card-header">
+            <ul class="nav nav-pills card-header-pills">
+                <li class="nav-item" id="listarU">
+                    <a class="nav-link" href="#listaPedidos">Active</a>
+                </li>
+                <li class="nav-item" id="registroU">
+                    <a class="nav-link" href="#nav2">Link</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#">Disabled</a>
+                </li>
+            </ul>
+        </div>
+        <br> <br>    
 
-            <input class="form-control" id="myInput" type="text" placeholder="Search..">
+        <div id="listaPedidos" class="card-deck">
 
-            <div id="listaPedidos" class="card-deck">
+        </div>
+    </div>
 
-            </div>
+    <!-- FORMULARIO REGISTRO PEDIDO-->
+    <form class="row invisible" id="nav2">
+        <div class="col-md-6">
+            <label for="inputEmail4" class="form-label">Material</label>
+            <input type="text" class="form-control" id="pmaterial" placeholder="Porcelanicro,foomy,etc">
+        </div>
+        <div class="col-md-6">
+            <label for="inputPassword4" class="form-label">Tamaño</label>
+            <input type="text" class="form-control" id="ptamaño" placeholder="10 cm,15 cm, 20 cm">
+        </div>
+        <div class="col-md-6">
+            <label for="inputPassword4" class="form-label">Cantidad</label>
+            <input type="number" class="form-control" id="pcantidad">
+        </div>
+        <div class="col-md-6">
+            <label for="inputAddress" class="form-label">Fecha Entrega</label>
+            <input type="date" class="form-control" id="pfechaentrega" placeholder="1234 Main St">
+        </div>
+        <div class="col-md-6">
+            <label for="formFileMultiple" class="form-label">Imagenes del producto a solicitar</label>
+            <input class="form-control" type="file" id="pfiles" multiple>
+        </div>
+        <div class="col-md-12">
+            <label for="exampleFormControlTextarea1" class="form-label">Descripción</label>
+            <textarea class="form-control" id="pdescripcion" rows="4"></textarea>
         </div>
 
-        <br> <br>
+        <div class="col-sm-6">
+            <button type="button" class="btn btn-primary" id="bRegPedido">Hacer Pedido</button>
+        </div>
+    </form>
 
-        <form class="row" id="nav2">
-            <div class="col-md-6">
-                <label for="inputEmail4" class="form-label">Material</label>
-                <input type="text" class="form-control" id="pmaterial" placeholder="Porcelanicro,foomy,etc">
-            </div>
-            <div class="col-md-6">
-                <label for="inputPassword4" class="form-label">Tamaño</label>
-                <input type="text" class="form-control" id="ptamaño" placeholder="10 cm,15 cm, 20 cm">
-            </div>
-            <div class="col-md-6">
-                <label for="inputPassword4" class="form-label">Cantidad</label>
-                <input type="number" class="form-control" id="pcantidad">
-            </div>
-            <div class="col-md-6">
-                <label for="inputAddress" class="form-label">Fecha Entrega</label>
-                <input type="date" class="form-control" id="pfechaentrega" placeholder="1234 Main St">
-            </div>
-            <div class="col-md-6">
-                <label for="formFileMultiple" class="form-label">Imagenes del producto a solicitar</label>
-                <input class="form-control" type="file" id="pfiles" multiple>
-            </div>
-            <div class="col-md-12">
-                <label for="exampleFormControlTextarea1" class="form-label">Descripción</label>
-                <textarea class="form-control" id="pdescripcion" rows="4"></textarea>
-            </div>
+    <!-- END FORMULARIO PEDIDO-->
 
-            <div class="col-sm-6">
-                <button type="button" class="btn btn-primary" id="bRegPedido">Hacer Pedido</button>
-            </div>
-        </form>
 
-        <!-- The Modal -->
-        <div id="modales"></div>
+    <!-- The Modal -->
+    <div id="modales"></div>
 
-    </div>
+
+
+
 
     <br>
     <br>
